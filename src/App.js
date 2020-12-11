@@ -1,25 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
+import './css/App.css'
+import './css/bootstrap.min.css'
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import NavBar from './components/NavBar'
+import ListOfClients from './components/ListOfClients'
+import EditClient from './components/EditClient'
+import AddClient from './components/AddClient'
+
+/*const Auth = () => {
+
+    return (
+      <div>
+        <h1 style={{ marginBottom: "5em" }}>
+          <strong>enter password</strong>
+        </h1>
+        <form className="add-new" onSubmit={onSubmit}>
+          <input onChange={inputOnChange} type="password" autoFocus />
+        </form>
+      </div>
+    )
+ 
+
+
+}*/
+
+const App = (props) => {
+
+  const [inputValue, setInputValue] = React.useState()
+  const [isLoggedIn, setIsLoggedIn] = React.useState()
+
+  const inputOnChange = (event) => {
+    setInputValue(event.target.value)
+  }
+
+  const onSubmit = () => {
+    if (inputValue === "serus") {
+      setIsLoggedIn(true)
+    }
+  }
+
+  if (!isLoggedIn) {
+    return (
+      <div>
+        <h1 style={{ marginBottom: "5em" }}>
+          <strong>authorize</strong>
+        </h1>
+        <form className="add-new" onSubmit={onSubmit}>
+          <input onChange={inputOnChange} type="password" autoFocus />
+        </form>
+      </div>
+    )
+  }
+
+  else if (isLoggedIn) {
+    return (
+      <Router>
+        <div className="container">
+          <NavBar />
+          <Route path="/" exact component={ListOfClients} />
+          <Route path="/update/:id" component={EditClient} />
+          <Route path="/add" component={AddClient} />
+        </div>
+      </Router>
+    )
+  }
 }
 
 export default App;
