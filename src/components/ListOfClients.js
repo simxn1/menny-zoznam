@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import port from '../port-variable'
 
 
 const Client = (props) => {
@@ -26,7 +27,7 @@ const ListOfClients = (props) => {
     const [clientsLoaded, setClientsLoaded] = React.useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/clients/')
+        axios.get(`http://localhost:${port}/clients/`)
             .then(response => {
                 setClients(response.data)
             })
@@ -36,7 +37,7 @@ const ListOfClients = (props) => {
     }, [])
 
     const deleteClient = (id) => {
-        axios.delete('http://localhost:5000/clients/' + id)
+        axios.delete(`http://localhost:${port}/clients/` + id)
             .then(res => console.log(res.data))
         setClients(clients.filter(client => client._id !== id))
     }
@@ -50,7 +51,7 @@ const ListOfClients = (props) => {
             setClients(clients.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
         }
         else {
-            axios.get('http://localhost:5000/clients/')
+            axios.get(`http://localhost:${port}/clients/`)
             .then(response => {
                 setClients(response.data)
             })
@@ -64,7 +65,7 @@ const ListOfClients = (props) => {
     const onKeyFind = (event) => {
         if (event.key === "Backspace") {
 
-            axios.get('http://localhost:5000/clients/')
+            axios.get(`http://localhost:${port}/clients/`)
             .then(response => {
                 setClientsLoaded(response.data)
             })
@@ -86,6 +87,7 @@ const ListOfClients = (props) => {
 
     return (
         <div>
+            <h1>{port}</h1>
             <form className="add-new find">
                 <input placeholder="find client by name" onChange={onChangeFind} onKeyUp={onKeyFind} />
             </form>
