@@ -7,7 +7,7 @@ require('dotenv').config()
 const app = express()
 const port = process.env.NODE_PORT || 80
 
-app.use(cors())
+app.use(cors({ credentials: true, origin: SERVER_IP }))
 app.use(express.json())
 
 const uri = process.env.ATLAS_URI
