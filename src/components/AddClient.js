@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
-import port from '../port-variable'
+import { port, url } from '../variables'
 
-const AddClient = () => {
+const AddClient = (props) => {
 
     const [fullName, setFullName] = React.useState('')
     const [email, setEmail] = React.useState('')
@@ -43,10 +43,10 @@ const AddClient = () => {
 
         window.location = '/'
 
-        const url = `http://localhost:${port}/clients/add`
+        //const url = `http://localhost:${port}/clients/add`
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 
-        axios.post(url, client)
+        axios.post(`http://${url}:${port}/clients/add`, client)
             .then(res => console.log(res.data))
     }
 
