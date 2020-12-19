@@ -55,7 +55,7 @@ const EditClient = (props) => {
             products: products
         }
 
-        window.location = '/'
+        window.location = '/clients/'
 
         //const url = `http://localhost:${port}/clients/update/` + props.match.params.id
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
