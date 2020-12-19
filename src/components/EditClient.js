@@ -60,7 +60,7 @@ const EditClient = (props) => {
         //const url = `http://localhost:${port}/clients/update/` + props.match.params.id
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 
-        axios.post(`http://${url}:${port}/clients/add`, client)
+        axios.post(`http://${url}/clients/add`, client)
             .then(res => console.log(res.data))
 
     }

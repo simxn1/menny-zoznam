@@ -27,7 +27,7 @@ const ListOfClients = (props) => {
     const [clientsLoaded, setClientsLoaded] = React.useState([])
 
     useEffect(() => {
-        axios.get(`http://${url}:${port}/clients/`)
+        axios.get(`http://${url}/clients/`)
             .then(response => {
                 setClients(response.data)
             })
@@ -37,7 +37,7 @@ const ListOfClients = (props) => {
     }, [])
 
     const deleteClient = (id) => {
-        axios.delete(`http://${url}:${port}/clients/` + id)
+        axios.delete(`http://${url}/clients/` + id)
             .then(res => console.log(res.data))
         setClients(clients.filter(client => client._id !== id))
     }
@@ -51,7 +51,7 @@ const ListOfClients = (props) => {
             setClients(clients.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
         }
         else {
-            axios.get(`http://${url}:${port}/clients/`)
+            axios.get(`http://${url}/clients/`)
             .then(response => {
                 setClients(response.data)
             })
@@ -65,7 +65,7 @@ const ListOfClients = (props) => {
     const onKeyFind = (event) => {
         if (event.key === "Backspace") {
 
-            axios.get(`http://${url}:${port}/clients/`)
+            axios.get(`http://${url}/clients/`)
             .then(response => {
                 setClientsLoaded(response.data)
             })
@@ -98,7 +98,6 @@ const ListOfClients = (props) => {
                     }
 
             </ul>
-            <span>port: {port}</span>
         </div>
     )
 

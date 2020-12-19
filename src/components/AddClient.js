@@ -46,7 +46,7 @@ const AddClient = (props) => {
         //const url = `http://localhost:${port}/clients/add`
         //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 
-        axios.post(`http://${url}:${port}/clients/add`, client)
+        axios.post(`http://${url}/clients/add`, client)
             .then(res => console.log(res.data))
     }
 
