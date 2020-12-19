@@ -55,7 +55,7 @@ const EditClient = (props) => {
             products: products
         }
 
-        window.location = '/'
+        window.location = '/clients/'
 
         axios.post(`${url}/clients/add`, client)
             .then(res => console.log(res.data))
