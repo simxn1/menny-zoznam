@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { port, url } from '../variables'
+import { url } from '../variables'
 
 
 const Client = (props) => {
@@ -27,7 +27,7 @@ const ListOfClients = (props) => {
     const [clientsLoaded, setClientsLoaded] = React.useState([])
 
     useEffect(() => {
-        axios.get(`http://${url}/clients/`)
+        axios.get(`${url}/clients/`)
             .then(response => {
                 setClients(response.data)
             })
@@ -37,7 +37,7 @@ const ListOfClients = (props) => {
     }, [])
 
     const deleteClient = (id) => {
-        axios.delete(`http://${url}/clients/` + id)
+        axios.delete(`${url}/clients/` + id)
             .then(res => console.log(res.data))
         setClients(clients.filter(client => client._id !== id))
     }
@@ -51,7 +51,7 @@ const ListOfClients = (props) => {
             setClients(clients.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
         }
         else {
-            axios.get(`http://${url}/clients/`)
+            axios.get(`${url}/clients/`)
             .then(response => {
                 setClients(response.data)
             })
@@ -65,7 +65,7 @@ const ListOfClients = (props) => {
     const onKeyFind = (event) => {
         if (event.key === "Backspace") {
 
-            axios.get(`http://${url}/clients/`)
+            axios.get(`${url}/clients/`)
             .then(response => {
                 setClientsLoaded(response.data)
             })

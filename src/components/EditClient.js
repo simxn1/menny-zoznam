@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { port, url } from '../variables'
+import { url } from '../variables'
 
 const EditClient = (props) => {
 
@@ -12,7 +12,7 @@ const EditClient = (props) => {
     const [products, setProducts] = React.useState('')
 
     React.useEffect(() => {
-        axios.get(`http://${url}:${port}/clients/` + props.match.params.id)
+        axios.get(`${url}/clients/` + props.match.params.id)
             .then(response => {
                 setFullName(response.data.fullName)
                 setEmail(response.data.email)
@@ -57,10 +57,7 @@ const EditClient = (props) => {
 
         window.location = '/'
 
-        //const url = `http://localhost:${port}/clients/update/` + props.match.params.id
-        //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
-
-        axios.post(`http://${url}/clients/add`, client)
+        axios.post(`${url}/clients/add`, client)
             .then(res => console.log(res.data))
 
     }
