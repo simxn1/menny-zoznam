@@ -12,7 +12,7 @@ const EditClient = (props) => {
     const [products, setProducts] = React.useState('')
 
     React.useEffect(() => {
-        axios.get(`${url}/clients/` + props.match.params.id)
+        axios.get(`${url}/clients/${props.match.params.id}`)
             .then(response => {
                 setFullName(response.data.fullName)
                 setEmail(response.data.email)
@@ -57,7 +57,7 @@ const EditClient = (props) => {
 
         window.location = '/'
 
-        axios.post(`${url}/clients/add`, client)
+        axios.post(`${url}/clients/update/${props.match.params.id}`, client) //`${url}/clients/add`
             .then(res => console.log(res.data))
 
     }

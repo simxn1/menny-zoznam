@@ -51,7 +51,7 @@ router.route('/update/:id').post((req, res) => {
             client.products = req.body.products
 
             client.save()
-                .then(() => res.json('exercise updated.'))
+                .then(() => res.json('client updated.'))
                 .catch(err => res.status(400).json('Error: ' + err))
         })
         .catch(err => res.status(400).json('Error: ' + err))
