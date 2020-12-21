@@ -55,7 +55,7 @@ const EditClient = (props) => {
             products: products
         }
 
-        window.location = '/'
+        window.location = 'http://159.89.19.176'
 
         axios.post(`${url}/clients/update/${props.match.params.id}`, client) //`${url}/clients/add`
             .then(res => console.log(res.data))
