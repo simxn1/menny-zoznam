@@ -3,6 +3,7 @@ const { deleteModel } = require('mongoose')
 let Client  = require('../models/client.model')
 
 router.route('/').get((req, res) => {
+    console.log('get/');
     Client.find()
         .then(clients => res.json(clients))
         .catch(err => res.status(400).json('Error: ' + err))
