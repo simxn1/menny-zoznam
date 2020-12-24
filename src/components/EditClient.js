@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import { url } from '../variables'
 
 const EditClient = (props) => {
@@ -45,7 +44,8 @@ const EditClient = (props) => {
         setProducts(event.target.value)
     }
 
-    const onSubmit = () => {
+    const onSubmit = (event) => {
+        event.preventDefault()
 
         const client = {
             fullName: fullName,
@@ -55,7 +55,7 @@ const EditClient = (props) => {
             products: products
         }
 
-	    window.location.assign('http://159.89.19.176')
+	    window.location = '/'
 
         axios.post(`${url}/clients/update/${props.match.params.id}`, client) //`${url}/clients/add`
              .then(res => console.log(res.data))
