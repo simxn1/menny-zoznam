@@ -44,7 +44,7 @@ const App = (props) => {
     return (
       <div>
         <h1 style={{ marginBottom: "5em" }}>
-          <strong>jakub hluchan je kokot</strong>
+          <strong>authorize</strong>
         </h1>
         <form className="add-new" onSubmit={onSubmit}>
           <input onChange={inputOnChange} type="password" autoFocus />
