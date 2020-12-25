@@ -189,7 +189,7 @@ const ListOfClients = (props) => {
     return (
         <div>
             <form className="add-new find">
-                <input placeholder={findPlaceholder} onChange={onChangeFind} onKeyUp={onKeyFind} />
+                <input placeholder={findPlaceholder} onChange={onChangeFind} onKeyUp={onKeyFind} autoFocus />
                 <input type="checkbox" id="switch" onChange={onChangeCheck} /><label for="switch">Toggle</label>
             </form>
             <ul className="list-of-clients">
