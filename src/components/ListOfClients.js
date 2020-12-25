@@ -25,6 +25,8 @@ const ListOfClients = (props) => {
 
     const [clients, setClients] = React.useState([])
     const [clientsLoaded, setClientsLoaded] = React.useState([])
+    const [findChecked, setFindChecked] = React.useState(false)
+    const [findPlaceholder, setFindPlaceholder] = React.useState('find client by name')
 
     useEffect(() => {
         axios.get(`http://localhost:${port}/clients/`)
@@ -44,59 +46,128 @@ const ListOfClients = (props) => {
 
     const onChangeFind = (event) => {
 
-        if (event.target.value.length) {
-            let matcher = event.target.value
-            let regex = new RegExp(matcher, "g")
+        console.log(findChecked);
 
-            setClients(clients.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
-        }
-        else {
-            axios.get(`http://localhost:${port}/clients/`)
-            .then(response => {
-                setClients(response.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        }
-
-    }
-
-    const onKeyFind = (event) => {
-        if (event.key === "Backspace") {
-
-            axios.get(`http://localhost:${port}/clients/`)
-            .then(response => {
-                setClientsLoaded(response.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+        if (!findChecked) {
 
             if (event.target.value.length) {
                 let matcher = event.target.value
                 let regex = new RegExp(matcher, "g")
-    
-                setClients(clientsLoaded.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
+
+                setClients(clients.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
             }
             else {
-                setClients(clientsLoaded)
+                axios.get(`http://localhost:${port}/clients/`)
+                    .then(response => {
+                        setClients(response.data)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
             }
+
+        }
+        else {
+
+            if (event.target.value.length) {
+                let matcher = event.target.value
+                let regex = new RegExp(matcher, "g")
+
+                setClients(clients.filter(client => client.note.substring(0, event.target.value.length).match(regex)))
+            }
+            else {
+                axios.get(`http://localhost:${port}/clients/`)
+                    .then(response => {
+                        setClients(response.data)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            }
+
+        } 
+
+    }
+
+    const onKeyFind = (event) => {
+
+        if (!findChecked) {
+
+            if (event.key === "Backspace") {
+
+                axios.get(`http://localhost:${port}/clients/`)
+                    .then(response => {
+                        setClientsLoaded(response.data)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+    
+                if (event.target.value.length) {
+                    let matcher = event.target.value
+                    let regex = new RegExp(matcher, "g")
+    
+                    setClients(clientsLoaded.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
+                }
+                else {
+                    setClients(clientsLoaded)
+                }
+            }
+
+        }
+        else {
+            
+            if (event.key === "Backspace") {
+
+                axios.get(`http://localhost:${port}/clients/`)
+                    .then(response => {
+                        setClientsLoaded(response.data)
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+    
+                if (event.target.value.length) {
+                    let matcher = event.target.value
+                    let regex = new RegExp(matcher, "g")
+    
+                    setClients(clientsLoaded.filter(client => client.note.substring(0, event.target.value.length).match(regex)))
+                }
+                else {
+                    setClients(clientsLoaded)
+                }
+            }
+
+        }
+
+    
+    }
+
+    const onChangeCheck = (event) => {
+        setFindChecked(event.target.checked)
+
+        if (event.target.checked) {
+            setFindPlaceholder('find client by type')
+        }
+        else {
+            setFindPlaceholder('find client by name')
         }
     }
 
     return (
         <div>
-            <h1>{port}</h1>
             <form className="add-new find">
-                <input placeholder="find client by name" onChange={onChangeFind} onKeyUp={onKeyFind} />
+                <input placeholder={findPlaceholder} onChange={onChangeFind} onKeyUp={onKeyFind} />
+                <input type="checkbox" id="switch" onChange={onChangeCheck} /><label for="switch">Toggle</label>
             </form>
+            {/*<span>is checked ? {findChecked.toString()}</span>*/}
             <ul className="list-of-clients">
 
-                    {
-                        clients.map(currentClient => {
-                        return <Client clients={clients} client={currentClient} deleteClient={deleteClient} key={currentClient._id} />})
-                    }
+                {
+                    clients.map(currentClient => {
+                        return <Client clients={clients} client={currentClient} deleteClient={deleteClient} key={currentClient._id} />
+                    })
+                }
 
             </ul>
         </div>
