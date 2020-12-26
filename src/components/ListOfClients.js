@@ -23,61 +23,53 @@ const Client = (props) => {
 
 const ListOfClients = (props) => {
 
-    const [clients, setClients] = React.useState([])
+    const [clientsDisplayed, setClientsDisplayed] = React.useState([])
     const [clientsLoaded, setClientsLoaded] = React.useState([])
     const [findChecked, setFindChecked] = React.useState(false)
     const [findPlaceholder, setFindPlaceholder] = React.useState('find client by name')
 
     useEffect(() => {
+        loadAndSetClientsDisplayed()
+    }, [])
+
+    const loadAndSetClientsDisplayed = () => {
         axios.get(`${url}/clients/`)
             .then(response => {
-                setClients(response.data)
+                setClientsDisplayed(response.data)
             })
             .catch((error) => {
                 console.log(error)
             })
-    }, [])
+    }
+
+    const loadAndSetClientsLoaded = () => {
+        axios.get(`${url}/clients/`)
+            .then(response => {
+                setClientsLoaded(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
     const deleteClient = (id) => {
         axios.delete(`${url}/clients/` + id)
             .then(res => console.log(res.data))
-        setClients(clients.filter(client => client._id !== id))
+        setClientsDisplayed(clientsDisplayed.filter(client => client._id !== id))
     }
 
     const onChangeFind = (event) => {
-
-        /*if (event.target.value.length) {
-            let matcher = event.target.value
-            let regex = new RegExp(matcher, "g")
-
-            setClients(clients.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
-        }
-        else {
-            axios.get(`${url}/clients/`)
-            .then(response => {
-                setClients(response.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        }*/
-
+        
         if (!findChecked) {
 
             if (event.target.value.length) {
                 let matcher = event.target.value
                 let regex = new RegExp(matcher, "g")
 
-                setClients(clients.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
+                setClientsDisplayed(clientsDisplayed.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
             }
             else {
-                axios.get(`${url}/clients/`)
-                    .then(response => {
-                        setClients(response.data)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+                loadAndSetClientsDisplayed()
             }
 
         }
@@ -87,16 +79,10 @@ const ListOfClients = (props) => {
                 let matcher = event.target.value
                 let regex = new RegExp(matcher, "g")
 
-                setClients(clients.filter(client => client.note.substring(0, event.target.value.length).match(regex)))
+                setClientsDisplayed(clientsDisplayed.filter(client => client.note.substring(0, event.target.value.length).match(regex)))
             }
             else {
-                axios.get(`${url}/clients/`)
-                    .then(response => {
-                        setClients(response.data)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+                loadAndSetClientsDisplayed()
             }
 
         }
@@ -104,47 +90,21 @@ const ListOfClients = (props) => {
     }
 
     const onKeyFind = (event) => {
-        /*if (event.key === "Backspace") {
-
-            axios.get(`${url}/clients/`)
-            .then(response => {
-                setClientsLoaded(response.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-
-            if (event.target.value.length) {
-                let matcher = event.target.value
-                let regex = new RegExp(matcher, "g")
-    
-                setClients(clientsLoaded.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
-            }
-            else {
-                setClients(clientsLoaded)
-            }
-        }*/
-
+        
         if (!findChecked) {
 
             if (event.key === "Backspace") {
 
-                axios.get(`${url}/clients/`)
-                    .then(response => {
-                        setClientsLoaded(response.data)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+                loadAndSetClientsLoaded()
 
                 if (event.target.value.length) {
                     let matcher = event.target.value
                     let regex = new RegExp(matcher, "g")
                     
-                    setClients(clientsLoaded.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
+                    setClientsDisplayed(clientsLoaded.filter(client => client.fullName.substring(0, event.target.value.length).match(regex)))
                 }
                 else {
-                    setClients(clientsLoaded)
+                    setClientsDisplayed(clientsLoaded)
                 }
 
             }
@@ -153,22 +113,16 @@ const ListOfClients = (props) => {
 
             if (event.key === "Backspace") {
 
-                axios.get(`${url}/clients/`)
-                    .then(response => {
-                        setClientsLoaded(response.data)
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
+                loadAndSetClientsLoaded()
 
                 if (event.target.value.length) {
                     let matcher = event.target.value
                     let regex = new RegExp(matcher, "g")
 
-                    setClients(clientsLoaded.filter(client => client.note.substring(0, event.target.value.length).match(regex)))
+                    setClientsDisplayed(clientsLoaded.filter(client => client.note.substring(0, event.target.value.length).match(regex)))
                 }
                 else {
-                    setClients(clientsLoaded)
+                    setClientsDisplayed(clientsLoaded)
                 }
             }
 
@@ -178,25 +132,43 @@ const ListOfClients = (props) => {
     const onChangeCheck = (event) => {
         setFindChecked(event.target.checked)
 
+        const inputFind = document.getElementById('find-client')
+        
         if (event.target.checked) {
             setFindPlaceholder('find client by type')
+            loadAndSetClientsLoaded()
+
+            if (inputFind.value.length) {
+                let matcher = inputFind.value
+                let regex = new RegExp(matcher, "g")
+
+                setClientsDisplayed(clientsLoaded.filter(client => client.note.substring(0, inputFind.value.length).match(regex)))
+            }
         }
         else {
             setFindPlaceholder('find client by name')
+            loadAndSetClientsLoaded()
+
+            if (inputFind.value.length) {
+                let matcher = inputFind.value
+                let regex = new RegExp(matcher, "g")
+
+                setClientsDisplayed(clientsLoaded.filter(client => client.fullName.substring(0, inputFind.value.length).match(regex)))
+            }
         }
     }
 
     return (
         <div>
             <form className="add-new find">
-                <input placeholder={findPlaceholder} onChange={onChangeFind} onKeyUp={onKeyFind} autoFocus />
+                <input id="find-client" placeholder={findPlaceholder} onChange={onChangeFind} onKeyUp={onKeyFind} autoFocus />
                 <input type="checkbox" id="switch" onChange={onChangeCheck} /><label for="switch">Toggle</label>
             </form>
             <ul className="list-of-clients">
 
                     {
-                        clients.map(currentClient => {
-                        return <Client clients={clients} client={currentClient} deleteClient={deleteClient} key={currentClient._id} />})
+                        clientsDisplayed.map(currentClient => {
+                        return <Client clients={clientsDisplayed} client={currentClient} deleteClient={deleteClient} key={currentClient._id} />})
                     }
 
             </ul>
