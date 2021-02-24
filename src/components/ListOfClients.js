@@ -164,7 +164,7 @@ const ListOfClients = (props) => {
                 <input id="find-client" placeholder={findPlaceholder} onChange={onChangeFind} onKeyUp={onKeyFind} autoFocus />
                 <input type="checkbox" id="switch" onChange={onChangeCheck} /><label for="switch">Toggle</label>
             </form>
-            <span>total number of clients:&nbsp;<strong>{clientsDisplayed.length}</strong></span>
+            <span>clients displayed:&nbsp;<strong>{clientsDisplayed.length}</strong></span>
             <ul className="list-of-clients">
 
                     {

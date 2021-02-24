@@ -207,13 +207,15 @@ li:nth-child(5n+5) article { background: #0f1a5f; }
   color: #fff;
   background: none;
   border: none;
+  border-radius: 0;
   border-bottom: 2px solid rgba(255, 255, 255, .9);
   display: block;
   margin: 0 auto;
   text-align: center;
   margin-bottom: 0.5em;
   width: 75%;
-  padding-top: 3.5px ;
+  padding-top: 3.5px;
+  -webkit-appearance: none;
 }
 
 .add-new input:focus {
