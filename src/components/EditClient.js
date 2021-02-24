@@ -45,7 +45,8 @@ const EditClient = (props) => {
         setProducts(event.target.value)
     }
 
-    const onSubmit = () => {
+    const onSubmit = (event) => {
+        event.preventDefault();
 
         const client = {
             fullName: fullName,
@@ -58,11 +59,9 @@ const EditClient = (props) => {
         window.location = '/'
 
         const url = `http://localhost:${port}/clients/update/` + props.match.params.id
-        //const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
 
         axios.post(url, client)
             .then(res => console.log(res.data))
-
     }
 
     return (

@@ -46,7 +46,7 @@ const ListOfClients = (props) => {
 
     const onChangeFind = (event) => {
 
-        console.log(findChecked);
+        //console.log(findChecked);
 
         if (!findChecked) {
 
