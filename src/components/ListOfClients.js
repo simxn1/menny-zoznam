@@ -160,6 +160,7 @@ const ListOfClients = (props) => {
                 <input placeholder={findPlaceholder} onChange={onChangeFind} onKeyUp={onKeyFind} />
                 <input type="checkbox" id="switch" onChange={onChangeCheck} /><label for="switch">Toggle</label>
             </form>
+            <span>total number of clients:&nbsp;<strong>{clients.length}</strong></span>
             {/*<span>is checked ? {findChecked.toString()}</span>*/}
             <ul className="list-of-clients">
 
