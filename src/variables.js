@@ -1,6 +1,6 @@
 const PRODUCTION_MODE = process.env.NODE_ENV === "production";
 
-let SERVER = "http://localhost:8080";
+let SERVER = "http://localhost:3000";
 if (PRODUCTION_MODE) {
   SERVER = "/clients";
   console.log("prod", SERVER);
